@@ -19,13 +19,15 @@
 <div class="container">
     <!-- Search Card and saved results -->
     <div class="row">
-        <div class="col-3">
-            <p>Search for a city to receive weather forecast in that area.</p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">City</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <button class="btnSearch">Search</button>
+        <div id = searchCardEl class="col-3">
+            <form id="searchFormEl">
+                <p>Search for a city to receive weather forecast in that area.</p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                    <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <button id="searchBtn" type="submit">Search</button>
+            </form>
             <hr>
             <div class="card" style="width: 100%">
                 <div class="card-header">
@@ -49,6 +51,9 @@
                       <div class="col-md-8">
                         <div class="card-body">
                           <h5 class="card-title">Today</h5>
+                          <h5>City Name: <span id = "featuredCityEl"></span></h5>
+                          <h6>Latitude: <span id = "featuredLatEl"></span></h6>
+                          <h6>Longitude: <span id = "featuredLonEl"></span></h6>
                           <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
