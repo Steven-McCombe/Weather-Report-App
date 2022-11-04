@@ -21,10 +21,9 @@
     <div class="row">
         <div id = searchCardEl class="col-3">
             <form id="searchFormEl">
-                <p>Search for a city to receive weather forecast in that area.</p>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">City</span>
-                    <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Search for a City">
                 </div>
                 <button id="searchBtn" type="submit">Search</button>
             </form>
@@ -46,17 +45,16 @@
                 <div class="card mb-3" >
                     <div class="row g-0">
                       <div class="col-md-4">
-                        <img id="featuredImgEl" src="https://openweathermap.org/img/wn/10d.png" class="card-img" alt="...">
+                        <img id="imgDay0" src="https://openweathermap.org/img/wn/10d.png" class="card-img" alt="...">
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
-                          <h5 class="card-title"><span id="featuredTitleEl"></span></h5>
-                          <h5>Today in  <span id = "featuredCityEl"></span></h5>
-                          <h6>Temperature: <span id = "featuredTempEl"></span></h6>
-                          <h6>Humidity: <span id = "featuredHumidityEl"></span></h6>
-                          <h6>Wind Speed: <span id = "featuredWindEl"></span></h6>
+                          <h5><span id = "featuredCityEl"></span></h5>
+                          <h5 class="card-title">Forecast Date: <span id="dateDay0"></span></h5>
+                          <h6>Temperature: <span id = "tempDay0"></span></h6>
+                          <h6>Humidity: <span id = "humidityDay0"></span></h6>
+                          <h6>Wind Speed: <span id = "windDay0"></span></h6>
                           <p id="featuredDescriptionEl" class="card-text"></p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
                       </div>
                     </div>
@@ -66,55 +64,51 @@
             <div class="container">
                 <div id = "dailyRow" class="row">
                     <!-- Daily Weather Cards Day 2 -->
-                    <div id = day2 class="card" style="width: 25%">
-                        <img id="imgDay2" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
+                    <div id = Day8 class="card" style="width: 25%">
+                        <img id="imgDay8" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
-                        <h5 id="headerDay2" class="card-title">Wednesday</h5>
-                        <p id="dateDay2" class="card-text">11/02/2022</p>
+                        <h5 id="dateDay8" class="card-title"></h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                        <li id="tempDay2" class="list-group-item">Temp:</li>
-                        <li id="windDay2" class="list-group-item">Wind:</li>
-                        <li id="humidityDay2"class="list-group-item">Humidity:</li>
+                        <li id="tempDay8" class="list-group-item">Temp:</li>
+                        <li id="windDay8" class="list-group-item">Wind:</li>
+                        <li id="humidityDay8"class="list-group-item">Humidity:</li>
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 3 -->
-                    <div id = Day3 class="card" style="width: 25%">
-                        <img id="imgDay3" src="https://openweathermap.org/img/wn/10n.png" class="card-img-top" alt="placeholder" >
+                    <div id = Day16 class="card" style="width: 25%">
+                        <img id="imgDay16" src="https://openweathermap.org/img/wn/10n.png" class="card-img-top" alt="placeholder" >
                         <div class="card-body">
-                        <h5 id="headerDay3" class="card-title">Wednesday</h5>
-                        <p id="dateDay3" class="card-text">11/02/2022</p>
+                        <h5 id="dateDay16" class="card-title"></h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                        <li id="tempDay3" class="list-group-item">Temp:</li>
-                        <li id="windDay3" class="list-group-item">Wind:</li>
-                        <li id="humidityDay3"class="list-group-item">Humidity:</li>
+                        <li id="tempDay16" class="list-group-item">Temp:</li>
+                        <li id="windDay16" class="list-group-item">Wind:</li>
+                        <li id="humidityDay16"class="list-group-item">Humidity:</li>
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 4 -->
-                    <div id = Day4 class="card" style="width: 25%">
-                        <img id="imgDay4" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
+                    <div id = Day24 class="card" style="width: 25%">
+                        <img id="imgDay24" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
-                        <h5 id="headerDay4" class="card-title">Wednesday</h5>
-                        <p id="dateDay4" class="card-text">11/02/2022</p>
+                        <h5 id="dateDay24" class="card-title"></h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                        <li id="tempDay4" class="list-group-item">Temp:</li>
-                        <li id="windDay4" class="list-group-item">Wind:</li>
-                        <li id="humidityDay4"class="list-group-item">Humidity:</li>
+                        <li id="tempDay24" class="list-group-item">Temp:</li>
+                        <li id="windDay24" class="list-group-item">Wind:</li>
+                        <li id="humidityDay24"class="list-group-item">Humidity:</li>
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 5 -->
-                    <div id = Day5 class="card" style="width: 25%">
-                        <img id="imgDay5" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
+                    <div id = Day32 class="card" style="width: 25%">
+                        <img id="imgDay32" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
-                        <h5 id="headerDay5" class="card-title">Wednesday</h5>
-                        <p id="dateDay5" class="card-text">11/02/2022</p>
+                        <h5 id="dateDay32" class="card-title"></h5>
                         </div>
                         <ul class="list-group list-group-flush">
-                        <li id="tempDay5" class="list-group-item">Temp:</li>
-                        <li id="windDay5" class="list-group-item">Wind:</li>
-                        <li id="humidityDay5"class="list-group-item">Humidity:</li>
+                        <li id="tempDay32" class="list-group-item">Temp:</li>
+                        <li id="windDay32" class="list-group-item">Wind:</li>
+                        <li id="humidityDay32"class="list-group-item">Humidity:</li>
                         </ul>
                     </div>
                 </div>
@@ -126,6 +120,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="./assets/js/search-script.js"></script>
-    <script src="./assets/js/display-search.js"></script>
 </body>
 </html>

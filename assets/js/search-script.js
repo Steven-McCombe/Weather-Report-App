@@ -17,16 +17,13 @@ var cityLon = ""
 var cityCoords = "test"
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
+var displayDate; 
+var dayOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 // -----------------Get elements by ID---------------------
 //search form elements
 var searchFormEl = document.querySelector("#searchFormEl")
 //Feature card elements
 var featuredCityEl = document.querySelector("#featuredCityEl")
-var featuredTempEl = document.querySelector("#featuredTempEl")
-var featuredHumidityEl = document.querySelector("#featuredHumidityEl")
-var featuredWindEl = document.querySelector("#featuredWindEl")
-var featuredTitleEl = document.querySelector("#featuredTitleEl")
-var featuredImgEl = document.querySelector("#featuredImgEl")
 var featuredDescriptionEl = document.querySelector("#featuredDescriptionEl")
 
 //Call Functions
@@ -43,16 +40,14 @@ function searchCardSubmit(event) {
         recentSearch.push(citySearchVal)
         localStorage.setItem("Searches", recentSearch)
         convertCityToCoords()
+        
 
     }
 }
 
 // function to change weather elements
 
-function renderTimes() {
-    featuredTitleEl.innerHTML = currentDateTime
 
- }
 
 
 
@@ -69,7 +64,7 @@ function convertCityToCoords() {
                 featuredCityEl.innerHTML = "Error City Not Found Please Check Spelling"
                 throw response.json();
             }
-            return response.json();
+            return response.json(); 
         })
         .then(function (returnResults) {
             cityCoords = "lat=" + returnResults.coord.lat + "&" + "lon=" + returnResults.coord.lon
@@ -84,18 +79,29 @@ function convertCityToCoords() {
                     return newResponse.json();
                 })
                 .then(function (weatherData) {
-                    //render featured
-                    // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
-                    featuredImgEl.setAttribute("src", iconPath + weatherData.list[0].weather[0].icon + ".png")
-                    featuredTempEl.innerHTML = weatherData.list[0].main.temp + "°F"
-                    featuredWindEl.innerHTML = weatherData.list[0].wind.speed + "mph"
-                    featuredHumidityEl.innerHTML = weatherData.list[0].main.humidity + "%"
+            
                     featuredDescriptionEl.innerHTML = "You should expect to see " + weatherData.list[0].weather[0].description
                     console.log(weatherData.list[0].weather[0].icon)
+                    
+                    for (var i = 0; i <= 32; i += 8){
+                        displayDate = new Date(weatherData.list[i].dt * 1000)
+                        console.log(displayDate)
+                        console.log(weatherData.list[i].dt * 1000)
+                        console.log(i)
+                        document.getElementById("imgDay" + (i)).setAttribute("src", iconPath +
+                        weatherData.list[i].weather[0].icon
+                            + ".png");
+                        document.getElementById("tempDay" + (i)).innerHTML = weatherData.list[i].main.temp + "°F"
+                        document.getElementById("windDay" + (i)).innerHTML = weatherData.list[i].wind.speed + "mph"
+                        document.getElementById("humidityDay" + (i)).innerHTML = weatherData.list[i].main.humidity + "%"
+                        document.getElementById("dateDay" + (i)).innerHTML = dayOfWeek[displayDate.getDay()]
+                        
+                    }
                 })
         })
 
 }
+
 
 
 searchFormEl.addEventListener('submit', searchCardSubmit);
