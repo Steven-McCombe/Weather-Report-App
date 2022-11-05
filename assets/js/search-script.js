@@ -1,7 +1,7 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-var recentSearch = []
+var recentSearch = JSON.parse(localStorage.getItem("Searches")) || [];
 var citySearchVal = ""
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
@@ -15,20 +15,26 @@ var searchFormEl = $("#searchFormEl")
 
 //function to handle the search query
 function searchCardSubmit(event) {
+    $('#savedList').html("")
     event.preventDefault()
     citySearchVal = $("#cityInput").val()
     if (!citySearchVal) {
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
-        recentSearch.push(citySearchVal)
-        localStorage.setItem("Searches", JSON.stringify(recentSearch))
+        saveToLocal()
         renderRecent()
         convertCityToCoords()
         
     }
 }
-
+//function to save to local storage - checks if value is alread in array
+function saveToLocal() {
+    if (jQuery.inArray(citySearchVal, recentSearch) === -1) {    
+        recentSearch.push(citySearchVal)
+        localStorage.setItem("Searches", JSON.stringify(recentSearch))
+     } 
+}
 //function to append list items to 
 var renderRecent = function() {
     var savedSearches = JSON.parse(localStorage.getItem("Searches"));
@@ -36,7 +42,7 @@ var renderRecent = function() {
         return
     }
     for (var i = 0; i < savedSearches.length; i++) {
-        $("#savedList").append("<li class=list-group-item>" + savedSearches[i] + "<button class = listbtn>Go</button></li>")
+        $("#savedList").append("<li class=list-group-item>" + savedSearches[i] + "</li>")
     }
     
 };
