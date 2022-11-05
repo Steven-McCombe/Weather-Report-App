@@ -42,7 +42,7 @@ function convertCityToCoords() {
     fetch(finalCoordURL) 
         .then(function (response) { 
             if (!response.ok) {
-                window.alert("Invalid City")
+                window.alert("Invalid City - Returning to Default City New York")
                 window.location.reload()
                 renderRecent()
                 throw response.json();
