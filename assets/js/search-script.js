@@ -5,8 +5,6 @@ var iconPath = "https://openweathermap.org/img/wn/"
 var displayDate; 
 var dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var baseCoordURL = "https://api.openweathermap.org/data/2.5/weather?appid=a373a52d933305394e8b248c3c11f5bd&units=imperial&"
-// -----------------Get elements by ID---------------------
-
 //search form and saved list elements
 var searchFormEl = $("#searchFormEl")
 
@@ -20,20 +18,10 @@ function searchCardSubmit(event) {
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
-        convertCityToCoords()
-        // saveToLocal()
-        
-        
+        convertCityToCoords()  
     }
 }
 
-$("#savedList li").click(function () {
-    $('#savedList').html("")
-    var recentSearchText = $(this)
-    citySearchVal = recentSearchText.text()
-    console.log(citySearchVal)
-    convertCityToCoords()
-});
 //function to append list items to 
 var renderRecent = function() {
     var savedSearches = JSON.parse(localStorage.getItem("Searches"));
@@ -54,7 +42,8 @@ function convertCityToCoords() {
     fetch(finalCoordURL) 
         .then(function (response) { 
             if (!response.ok) {
-                featuredCityEl.innerHTML = "Error City Not Found Please Check Spelling - Currently showing weather data for last searched"
+                window.alert("Invalid City")
+                window.location.reload()
                 renderRecent()
                 throw response.json();
                 
