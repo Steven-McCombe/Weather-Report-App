@@ -1,26 +1,108 @@
+:root {
+    --color1: #31255a;
+    --color2: #8fe0ff;
+    --color3: #75b4e3;
+    --color4: #54416d;
+    --color5: #2b235a;
+}
+
 body {
-
+background-color: var(--color3);
+font-family: 'Poppins', sans-serif;
+color: white;
 }
-button {
+
+Button {
+    margin-top: 10px;
+	background-color:var(--color1);
+	border-radius:28px;
+    border: 0px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family: 'Poppins', sans-serif;
+	font-size:14px;
+    font-weight: 100;
+	padding:5px 15px;
+	text-decoration:none;
     width: 100%;
-    border-radius: 5px;
+}
+Button:hover {
+	background-color: var(--color4);
+}
+Button:active {
+	position:relative;
+	top:1px;
+}
+footer {
+    text-align: center;
+    margin: 25px;
+    font-size: 12px;
+    opacity: 20%;
+}
+span {
+    color: var(--color5);
+    font-style: italic;
+}
+header {
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--color1);
 }
 
-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    background-color: antiquewhite;
-    border: 1px solid;
-    border-radius: 5px;
-}
-.text-muted {
+.text-mute {
     font-size: 10px; 
+    opacity: 100%;
+    color: var(--color2);
 }
 
 .card {
-   background-color: rgba(255, 255, 255, 0.627);
-
+    background-color: #61a1d2;
+    border-radius: 15px;
+    border: 0px;
+    margin: 1px;
 }
 
+.list-group-item{
+    background-color: #61a1d2;
+    color: white;
+}
+
+
+#savedItemsList {
+    background-color: white;
+    color: var(--color1);
+}
+
+#savedItemsList:hover {
+    background-color: var(--color5);
+    color: white;
+    cursor: pointer;
+}
+#savedItemsList:active {
+    position:relative;
+	top:1px;
+}
+.recentHeader {
+    background-color:var(--color5);
+    
+}
+h4 {
+    color: var(--color1);
+}
+h6{
+    color:var(--color1);
+    text-align: center;
+}
+
+.descText {
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.descText0 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: white;
+}

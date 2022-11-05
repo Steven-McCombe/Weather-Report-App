@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/fontawesome.min.css" integrity="sha384-z4tVnCr80ZcL0iufVdGQSUzNvJsKjEtqYZjiQrrYKlpGow+btDHDfQWkFjoaz/Zr" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -13,7 +16,7 @@
 <body >
 
 <header class ="container ">
-    <h1 class="display-3">Weather Dashboard </h1>
+    <h1 class="display-3 headerText">Weather Dashboard </h1>
 </header>
 
 <div class="container">
@@ -21,21 +24,20 @@
     <div class="row">
         <div id = searchCardEl class="col-3">
             <form id="searchFormEl">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">City</span>
+                <div class="input-group ">
                     <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Enter a city name">
                 </div>
                 <button id="searchBtn" type="submit">Search</button>
             </form>
             <hr>
-            <div class="card" style="width: 100%">
-                <div class="card-header">
-                Recent Searches
+            <div class="card recentCard" style="width: 100%">
+                <div class="card-header recentHeader">
+                Recent Searches <span class = "text-mute"><br>New York CIty (Default)</span>
                 </div>
                 <ul id ="savedList" class="list-group list-group-flush">
                 </ul>
-                <button id="clearBtn">Clear Saved</button>
               </div>
+              <button id="clearBtn">Clear Saved</button>
         </div>
         <!-- Featured weather div  -->
         <div class="col-9">
@@ -47,30 +49,30 @@
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
-                          <h5><span id = "featuredCityEl"></span></h5>
-                          <span class = "text-muted" id = coordDay></span>
+                          <h4><span id = "featuredCityEl"></span></h4>
+                          <span class = "text-mute" id = coordDay></span>
                           <hr>
-                          <h5 class="card-title"><span id="dateDay"></span></h5>
-                          <h6>Temperature: <span id = "tempDay"></span></h6>
-                          <h6>Humidity: <span id = "humidityDay"></span></h6>
-                          <h6>Wind Speed: <span id = "windDay"></span></h6>
-                          <p class="card-text">You should expect to see <span id = "conditionsDay"></span></p>
-                          <span class = "text-muted" id = timeDay>Data from: </span>
+                          <h4 class="card-title"><span id="dateDay"></span></h4>
+                          <h5>Temperature: <span id = "tempDay"></span></h5>
+                          <h5>Humidity: <span id = "humidityDay"></span></h5>
+                          <h5>Wind Speed: <span id = "windDay"></span></h5>
+                          <p class="card-text descText0">You should expect to see <span id = "conditionsDay" class = "descText0"></span></p>
+                          <span class = "text-mute" id = timeDay>Data from: </span>
                         </div>
                       </div>
                     </div>
                   </div>
             </div>
             <!-- Daily Weather cards div  -->
-            <div class="container">
+            <div class="container col-12">
                 <div id = "dailyRow" class="row">
                     <!-- Daily Weather Cards Day 2 -->
-                    <div id = Day7 class="card" style="width: 20%">
+                    <div id = Day7 class="card" style="width: 19%">
                         <img id="imgDay7" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                     <div class="card-body">
                         <h6 id="dayDay7" class="card-title"></h6>
                         <h6 id="dateDay7" class="card-title"></h6>
-                        <p id = conditionsDay7 class="card-text"></p>
+                        <p id = conditionsDay7 class="card-text descText"></p>
                     </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Temp: <span id="tempDay7" ></span></li>
@@ -79,12 +81,12 @@
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 3 -->
-                    <div id = Day15 class="card" style="width: 20%">
+                    <div id = Day15 class="card" style="width: 19%">
                         <img id="imgDay15" src="https://openweathermap.org/img/wn/10n.png" class="card-img-top" alt="placeholder" >
                     <div class="card-body">
                         <h6 id="dayDay15" class="card-title"></h6>
                         <h6 id="dateDay15" class="card-title"></h6>
-                        <p id = conditionsDay15 class="card-text"></p>
+                        <p id = conditionsDay15 class="card-text descText"></p>
                     </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Temp: <span id="tempDay15" ></span></li>
@@ -93,12 +95,12 @@
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 4 -->
-                    <div id = Day23 class="card" style="width: 20%">
+                    <div id = Day23 class="card" style="width: 19%">
                         <img id="imgDay23" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
                             <h6 id="dayDay23" class="card-title"></h6>
                             <h6 id="dateDay23" class="card-title"></h6>
-                            <p id = conditionsDay23 class="card-text"></p>
+                            <p id = conditionsDay23 class="card-text descText"></p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Temp: <span id="tempDay23" ></span></li>
@@ -107,12 +109,12 @@
                         </ul>
                     </div>
                     <!-- Daily Weather Cards Day 5 -->
-                    <div id = Day31 class="card" style="width: 20%">
+                    <div id = Day31 class="card" style="width: 19%">
                         <img id="imgDay31" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
                             <h6 id="dayDay31" class="card-title"></h6>
                             <h6 id="dateDay31" class="card-title"></h6>
-                            <p id = conditionsDay31 class="card-text"></p>
+                            <p id = conditionsDay31 class="card-text descText"></p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Temp: <span id="tempDay31" ></span></li>
@@ -121,12 +123,12 @@
                         </ul>
                     </div>
                      <!-- Daily Weather Cards Day 6 -->
-                     <div id = Day39 class="card" style="width: 20%">
+                     <div id = Day39 class="card" style="width: 19%">
                         <img id="imgDay39" src="https://openweathermap.org/img/wn/10d.png" class="card-img-top" alt="placeholder">
                         <div class="card-body">
                             <h6 id="dayDay39" class="card-title"></h6>
                             <h6 id="dateDay39" class="card-title"></h6>
-                            <p id = conditionsDay39 class="card-text"></p>
+                            <p id = conditionsDay39 class="card-text descText"></p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Temp: <span id="tempDay39" ></span></li>
@@ -139,6 +141,9 @@
         </div>
     </div>
 </div> 
+<footer>
+    <p> &copy; Steven McCombe</p>
+</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

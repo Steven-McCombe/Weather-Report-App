@@ -30,7 +30,7 @@ var renderRecent = function() {
     }
     //creates a new list item for each city saved in local storage
     for (var i = 0; i < savedSearches.length; i++) {
-        $("#savedList").append("<li class=list-group-item>" + savedSearches[i] + "</li>")
+        $("#savedList").append("<li id = savedItemsList class=list-group-item customList>" + savedSearches[i] + "</li>")
     }
     
 };
