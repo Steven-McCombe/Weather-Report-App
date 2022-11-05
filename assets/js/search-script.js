@@ -72,12 +72,13 @@ function getWeather() {
                   
               //render data to page
                 .then(function (weatherData) {
-
+                    //convert the country code to country name
+                    var CountryName = new Intl.DisplayNames(['en'], { type: 'region' });
                     //converts unixtimestamp to a date value
                     displayDate = new Date((returnResults.dt) * 1000)
                     //grab elements by id and replace their inner html with the index of the api
-                    $("#featuredCityEl").html(returnResults.name)
-                    $("#coordDay").html("Country " + returnResults.sys.country + " -  Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon)
+                    $("#featuredCityEl").html(returnResults.name + ", " + CountryName.of(returnResults.sys.country))
+                    $("#coordDay").html("Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon)
                     $("imgDay").attr("src", iconPath + returnResults.weather[0].icon + "@2x.png");
                     $("#tempDay").html(returnResults.main.temp.toFixed() + "°F")
                     $("#windDay").html(returnResults.wind.speed.toFixed() + "mph")
@@ -98,8 +99,6 @@ function getWeather() {
                         $("#dayDay" + (i)).html(dayOfWeek[displayDate.getDay()])
                         $("#dateDay" + (i)).html(displayDate.toLocaleDateString())
                         $("#conditionsDay" + (i)).html(weatherData.list[i].weather[0].description)
-                        $("#timeDay" + (i)).html("Data Time: " +
-                        displayDate.getHours() + ":00")
                     }
                     //called the saved functions and click listener inside the fetch in order to access asynchronous data. This will help ensure only true city names are pushed to the renderRecent list. 
                     function saveToLocal() {
