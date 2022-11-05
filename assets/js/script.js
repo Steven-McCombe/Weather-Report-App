@@ -72,18 +72,20 @@ function getWeather() {
                   
               //render data to page
                 .then(function (weatherData) {
+
                     //convert the country code to country name
                     var CountryName = new Intl.DisplayNames(['en'], { type: 'region' });
                     //converts unixtimestamp to a date value
                     displayDate = new Date((returnResults.dt) * 1000)
+
                     //grab elements by id and replace their inner html with the index of the api
                     $("#featuredCityEl").html(returnResults.name + ", " + CountryName.of(returnResults.sys.country))
                     $("#coordDay").html("Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon)
+                    $("#dateDay").html(dayOfWeek[displayDate.getDay()] + " - " + displayDate.toLocaleDateString())
                     $("imgDay").attr("src", iconPath + returnResults.weather[0].icon + "@2x.png");
                     $("#tempDay").html(returnResults.main.temp.toFixed() + "°F")
                     $("#windDay").html(returnResults.wind.speed.toFixed() + "mph")
                     $("#humidityDay").html(returnResults.main.humidity.toFixed() + "%")
-                    $("#dateDay").html(dayOfWeek[displayDate.getDay()] + " " + displayDate.toLocaleDateString())
                     $("#conditionsDay").html(returnResults.weather[0].description)
                     $("#timeDay").html("Data from: " + displayDate.toString())
 
@@ -122,6 +124,11 @@ function getWeather() {
         })
 
 }
+//Clear local storage -- Default City Returns
+$("#clearBtn").click(function () {
+    localStorage.clear() 
+    window.location.reload()
+});
 //on page load run the fetch. This will load the date automatically from the default city. in this case the default city is new york. Future development would allow the default city to be users location.
 getWeather()
 searchFormEl.on('submit', searchCardSubmit);
