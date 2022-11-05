@@ -3,27 +3,14 @@
 
 var recentSearch = []
 var citySearchVal = ""
-var cityLat = ""
-var cityLon = ""
-var cityCoords = "test"
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
 var displayDate; 
 var dayOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 // -----------------Get elements by ID---------------------
 
-//search form elements
+//search form and saved list elements
 var searchFormEl = document.querySelector("#searchFormEl")
-//Feature card elements
-var featuredCityEl = document.querySelector("#featuredCityEl")
-var coordDay = document.getElementById("coordDay")
-var imgDay = document.getElementById("imgDay")
-var tempDay = document.getElementById("tempDay")
-var windDay = document.getElementById("windDay")
-var humidityDay = document.getElementById("humidityDay")
-var dateDay = document.getElementById("dateDay")
-var conditionsDay = document.getElementById("conditionsDay")
-var timeDay = document.getElementById("timeDay")
 
 //function to handle the search query
 function searchCardSubmit(event) {
@@ -36,8 +23,6 @@ function searchCardSubmit(event) {
         recentSearch.push(citySearchVal)
         localStorage.setItem("Searches", recentSearch)
         convertCityToCoords()
-        
-
     }
 }
 
@@ -74,31 +59,33 @@ function convertCityToCoords() {
                   
               //render data to page
                 .then(function (weatherData) {
+
                     //converts unixtimestamp to a date value
                     displayDate = new Date((returnResults.dt) * 1000)
                     //grab elements by id and replace their inner html with the index of the api
                     featuredCityEl.innerHTML = returnResults.name
-                    coordDay.innerHTML = "Country " + returnResults.sys.country + " -  Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon
-                    imgDay.setAttribute("src", iconPath + returnResults.weather[0].icon + "@2x.png");
-                    tempDay.innerHTML = returnResults.main.temp + "°F"
-                    windDay.innerHTML = returnResults.wind.speed + "mph"
-                    humidityDay.innerHTML = returnResults.main.humidity + "%"
-                    dateDay.innerHTML = dayOfWeek[displayDate.getDay()]
-                    conditionsDay.innerHTML = returnResults.weather[0].description
-                    timeDay.innerHTML = "Data from: " + displayDate.toDateString() 
+                    $("#coordDay").html("Country " + returnResults.sys.country + " -  Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon)
+                    $("imgDay").attr("src", iconPath + returnResults.weather[0].icon + "@2x.png");
+                    $("#tempDay").html(returnResults.main.temp + "°F")
+                    $("#windDay").html(returnResults.wind.speed + "mph")
+                    $("#humidityDay").html(returnResults.main.humidity + "%")
+                    $("#dateDay").html(dayOfWeek[displayDate.getDay()])
+                    $("#conditionsDay").html(returnResults.weather[0].description)
+                    $("#timeDay").html("Data from: " + displayDate.toDateString())
+
                 // loop through data in increments of 8 to display different days (data comes back in 3 hour increments)
                     for (var i = 4; i <= 36; i += 8){
                         //converts unixtimestamp to a date value
                         displayDate = new Date((weatherData.list[i].dt) * 1000)
                         //grab elements by id and replace their inner html with the index of the api
-                        document.getElementById("imgDay" + (i)).setAttribute("src", iconPath + weatherData.list[i].weather[0].icon + "@2x.png");
-                        document.getElementById("tempDay" + (i)).innerHTML = weatherData.list[i].main.temp + "°F"
-                        document.getElementById("windDay" + (i)).innerHTML = weatherData.list[i].wind.speed + "mph"
-                        document.getElementById("humidityDay" + (i)).innerHTML = weatherData.list[i].main.humidity + "%"
-                        document.getElementById("dateDay" + (i)).innerHTML = dayOfWeek[displayDate.getDay()]
-                        document.getElementById("conditionsDay" + (i)).innerHTML = weatherData.list[i].weather[0].description
-                        document.getElementById("timeDay" + (i)).innerHTML = "Data from: " +
-                        displayDate.toDateString()
+                        $("#imgDay" + (i)).attr("src", iconPath + weatherData.list[i].weather[0].icon + "@2x.png");
+                        $("#tempDay" + (i)).html(weatherData.list[i].main.temp + "°F")
+                        $("#windDay" + (i)).html(weatherData.list[i].wind.speed + "mph")
+                        $("#humidityDay" + (i)).html(weatherData.list[i].main.humidity + "%")
+                        $("#dateDay" + (i)).html(dayOfWeek[displayDate.getDay()])
+                        $("#conditionsDay" + (i)).html(weatherData.list[i].weather[0].description)
+                        $("#timeDay" + (i)).html("Data from: " +
+                        displayDate.toDateString())
                     }
                 })
         })
