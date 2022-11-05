@@ -1,5 +1,5 @@
 var recentSearch = JSON.parse(localStorage.getItem("Searches")) || [];
-var citySearchVal = "New York" //New York by Default
+var citySearchVal = "New York" //New York by Default. 
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
 var displayDate; 
@@ -16,6 +16,7 @@ function searchCardSubmit(event) {
     event.preventDefault()
     citySearchVal = $("#cityInput").val()
     if (!citySearchVal) {
+        renderRecent()
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
@@ -53,8 +54,10 @@ function convertCityToCoords() {
     fetch(finalCoordURL) 
         .then(function (response) { 
             if (!response.ok) {
-                featuredCityEl.innerHTML = "Error City Not Found Please Check Spelling"
+                featuredCityEl.innerHTML = "Error City Not Found Please Check Spelling - Currently showing weather data for last searched"
+                renderRecent()
                 throw response.json();
+                
             }
             return response.json(); 
         })
@@ -105,12 +108,14 @@ function convertCityToCoords() {
                         $("#timeDay" + (i)).html("Data from: " +
                         displayDate.toDateString())
                     }
+                    //called the saved functions and click listener inside the fetch in order to access asynchronous data. This will help ensure only true city names are pushed to the renderRecent list. 
                     function saveToLocal() {
                         if (jQuery.inArray(returnResults.name, recentSearch) === -1) {    
                             recentSearch.push(returnResults.name)
                             localStorage.setItem("Searches", JSON.stringify(recentSearch))
                          } 
                     }
+                    
                     saveToLocal()
                     renderRecent()
                     $("#savedList li").click(function () {
