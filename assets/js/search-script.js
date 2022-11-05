@@ -18,29 +18,31 @@ function searchCardSubmit(event) {
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
-        convertCityToCoords()  
+        getWeather()  
     }
 }
 
-//function to append list items to 
+//function to append list items to recent searches UL
 var renderRecent = function() {
     var savedSearches = JSON.parse(localStorage.getItem("Searches"));
     if (!savedSearches) {
         return
     }
+    //creates a new list item for each city saved in local storage
     for (var i = 0; i < savedSearches.length; i++) {
         $("#savedList").append("<li class=list-group-item>" + savedSearches[i] + "</li>")
     }
     
 };
 
-function convertCityToCoords() {
-    //convert the input city name to co-ordinates.
+function getWeather() {
+    //search weather api using the input city name as a parameter
     var cityCoordQuery = "q=" + citySearchVal 
     var finalCoordURL = baseCoordURL + cityCoordQuery
     
     fetch(finalCoordURL) 
         .then(function (response) { 
+            //error logic if city is not found in the api
             if (!response.ok) {
                 window.alert("Invalid City - Returning to Default City New York")
                 window.location.reload()
@@ -53,13 +55,14 @@ function convertCityToCoords() {
       
               
         .then(function (returnResults) {
+            //search forecast api with coordinate parameters
             cityCoords = "lat=" + returnResults.coord.lat + "&" + "lon=" + returnResults.coord.lon
             cityWeatherQuery = "https://api.openweathermap.org/data/2.5/forecast?" + cityCoords + "&appid=a373a52d933305394e8b248c3c11f5bd&units=imperial"
             //fetch date from openweathermap api with coordinate parameters 
             
             fetch(cityWeatherQuery) 
                 .then(function (newResponse) {
-                //error checking
+                //error checking if api fetch is not valid.
                     if (!newResponse.ok) {
                         console.error("Bad Response")
                         throw newResponse.json();
@@ -73,29 +76,30 @@ function convertCityToCoords() {
                     //converts unixtimestamp to a date value
                     displayDate = new Date((returnResults.dt) * 1000)
                     //grab elements by id and replace their inner html with the index of the api
-                    featuredCityEl.innerHTML = returnResults.name
+                    $("#featuredCityEl").html(returnResults.name)
                     $("#coordDay").html("Country " + returnResults.sys.country + " -  Latitude: " + returnResults.coord.lat+ " Longitude: " + returnResults.coord.lon)
                     $("imgDay").attr("src", iconPath + returnResults.weather[0].icon + "@2x.png");
-                    $("#tempDay").html(returnResults.main.temp + "°F")
-                    $("#windDay").html(returnResults.wind.speed + "mph")
-                    $("#humidityDay").html(returnResults.main.humidity + "%")
-                    $("#dateDay").html(dayOfWeek[displayDate.getDay()])
+                    $("#tempDay").html(returnResults.main.temp.toFixed() + "°F")
+                    $("#windDay").html(returnResults.wind.speed.toFixed() + "mph")
+                    $("#humidityDay").html(returnResults.main.humidity.toFixed() + "%")
+                    $("#dateDay").html(dayOfWeek[displayDate.getDay()] + " " + displayDate.toLocaleDateString())
                     $("#conditionsDay").html(returnResults.weather[0].description)
-                    $("#timeDay").html("Data from: " + displayDate.toDateString())
+                    $("#timeDay").html("Data from: " + displayDate.toString())
 
                 // loop through data in increments of 8 to display different days (data comes back in 3 hour increments)
-                    for (var i = 4; i <= 36; i += 8){
+                    for (var i = 7; i <= 39; i += 8){
                         //converts unixtimestamp to a date value
                         displayDate = new Date((weatherData.list[i].dt) * 1000)
                         //grab elements by id and replace their inner html with the index of the api
                         $("#imgDay" + (i)).attr("src", iconPath + weatherData.list[i].weather[0].icon + "@2x.png");
-                        $("#tempDay" + (i)).html(weatherData.list[i].main.temp + "°F")
-                        $("#windDay" + (i)).html(weatherData.list[i].wind.speed + "mph")
-                        $("#humidityDay" + (i)).html(weatherData.list[i].main.humidity + "%")
-                        $("#dateDay" + (i)).html(dayOfWeek[displayDate.getDay()])
+                        $("#tempDay" + (i)).html(weatherData.list[i].main.temp.toFixed() + "°F")
+                        $("#windDay" + (i)).html(weatherData.list[i].wind.speed.toFixed() + "mph")
+                        $("#humidityDay" + (i)).html(weatherData.list[i].main.humidity.toFixed() + "%")
+                        $("#dayDay" + (i)).html(dayOfWeek[displayDate.getDay()])
+                        $("#dateDay" + (i)).html(displayDate.toLocaleDateString())
                         $("#conditionsDay" + (i)).html(weatherData.list[i].weather[0].description)
-                        $("#timeDay" + (i)).html("Data from: " +
-                        displayDate.toDateString())
+                        $("#timeDay" + (i)).html("Data Time: " +
+                        displayDate.getHours() + ":00")
                     }
                     //called the saved functions and click listener inside the fetch in order to access asynchronous data. This will help ensure only true city names are pushed to the renderRecent list. 
                     function saveToLocal() {
@@ -112,12 +116,13 @@ function convertCityToCoords() {
                         var recentSearchText = $(this)
                         citySearchVal = recentSearchText.text()
                         console.log(citySearchVal)
-                        convertCityToCoords()
+                        getWeather()
                     });
                    
                 })
         })
 
 }
-convertCityToCoords()
+//on page load run the fetch. This will load the date automatically from the default city. in this case the default city is new york. Future development would allow the default city to be users location.
+getWeather()
 searchFormEl.on('submit', searchCardSubmit);
