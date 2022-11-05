@@ -1,8 +1,5 @@
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
 var recentSearch = JSON.parse(localStorage.getItem("Searches")) || [];
-var citySearchVal = ""
+var citySearchVal = "New York" //New York by Default
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
 var displayDate; 
@@ -28,13 +25,6 @@ function searchCardSubmit(event) {
         
     }
 }
-//function to save to local storage - checks if value is alread in array
-// function saveToLocal() {
-//     if (jQuery.inArray(returnResults.name, recentSearch) === -1) {    
-//         recentSearch.push(returnResults.name)
-//         localStorage.setItem("Searches", JSON.stringify(recentSearch))
-//      } 
-// }
 
 $("#savedList li").click(function () {
     $('#savedList').html("")
@@ -135,5 +125,5 @@ function convertCityToCoords() {
         })
 
 }
-
+convertCityToCoords()
 searchFormEl.on('submit', searchCardSubmit);
