@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Report</title>
 </head>
-<body>
+<!-- calls the renderRecent function on page load -->
+<body onload="renderRecent()">
 
 <header class ="container ">
     <h1 class="display-3">Weather Dashboard </h1>
@@ -22,7 +23,7 @@
             <form id="searchFormEl">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">City</span>
-                    <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Search for a City">
+                    <input id="cityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="" placeholder="Enter a city name">
                 </div>
                 <button id="searchBtn" type="submit">Search</button>
             </form>
@@ -31,7 +32,7 @@
                 <div class="card-header">
                 Recent Searches
                 </div>
-                <ul id = "savedList" class="list-group list-group-flush">
+                <ul id ="savedList" class="list-group list-group-flush">
                 </ul>
               </div>
         </div>

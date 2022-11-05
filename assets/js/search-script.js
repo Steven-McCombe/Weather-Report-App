@@ -22,19 +22,27 @@ function searchCardSubmit(event) {
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
-        saveToLocal()
-        renderRecent()
         convertCityToCoords()
+        // saveToLocal()
+        
         
     }
 }
 //function to save to local storage - checks if value is alread in array
-function saveToLocal() {
-    if (jQuery.inArray(citySearchVal, recentSearch) === -1) {    
-        recentSearch.push(citySearchVal)
-        localStorage.setItem("Searches", JSON.stringify(recentSearch))
-     } 
-}
+// function saveToLocal() {
+//     if (jQuery.inArray(returnResults.name, recentSearch) === -1) {    
+//         recentSearch.push(returnResults.name)
+//         localStorage.setItem("Searches", JSON.stringify(recentSearch))
+//      } 
+// }
+
+$("#savedList li").click(function () {
+    $('#savedList').html("")
+    var recentSearchText = $(this)
+    citySearchVal = recentSearchText.text()
+    console.log(citySearchVal)
+    convertCityToCoords()
+});
 //function to append list items to 
 var renderRecent = function() {
     var savedSearches = JSON.parse(localStorage.getItem("Searches"));
@@ -46,14 +54,6 @@ var renderRecent = function() {
     }
     
 };
-
-// $("<button>").on('click', function (event) {
-//     event.preventDefault();
-//     event.stopPropagation();
-//     citySearchVal = $(this).siblings('li').val()
-//     console.log(citySearchVal)
-//     convertCityToCoords()
-// });
 
 function convertCityToCoords() {
     //convert the input city name to co-ordinates.
@@ -115,6 +115,22 @@ function convertCityToCoords() {
                         $("#timeDay" + (i)).html("Data from: " +
                         displayDate.toDateString())
                     }
+                    function saveToLocal() {
+                        if (jQuery.inArray(returnResults.name, recentSearch) === -1) {    
+                            recentSearch.push(returnResults.name)
+                            localStorage.setItem("Searches", JSON.stringify(recentSearch))
+                         } 
+                    }
+                    saveToLocal()
+                    renderRecent()
+                    $("#savedList li").click(function () {
+                        $('#savedList').html("")
+                        var recentSearchText = $(this)
+                        citySearchVal = recentSearchText.text()
+                        console.log(citySearchVal)
+                        convertCityToCoords()
+                    });
+                   
                 })
         })
 
