@@ -6,30 +6,52 @@ var citySearchVal = ""
 currentDateTime = moment().format('LLLL')
 var iconPath = "https://openweathermap.org/img/wn/"
 var displayDate; 
-var dayOfWeek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var baseCoordURL = "https://api.openweathermap.org/data/2.5/weather?appid=a373a52d933305394e8b248c3c11f5bd&units=imperial&"
 // -----------------Get elements by ID---------------------
 
 //search form and saved list elements
-var searchFormEl = document.querySelector("#searchFormEl")
+var searchFormEl = $("#searchFormEl")
 
 //function to handle the search query
 function searchCardSubmit(event) {
     event.preventDefault()
-    citySearchVal = document.querySelector("#cityInput").value
+    citySearchVal = $("#cityInput").val()
     if (!citySearchVal) {
         window.alert('Insert a City before Searching')
         // console.error('Insert a City before Searching')
     } else {
         recentSearch.push(citySearchVal)
-        localStorage.setItem("Searches", recentSearch)
+        localStorage.setItem("Searches", JSON.stringify(recentSearch))
+        renderRecent()
         convertCityToCoords()
+        
     }
 }
+
+//function to append list items to 
+var renderRecent = function() {
+    var savedSearches = JSON.parse(localStorage.getItem("Searches"));
+    if (!savedSearches) {
+        return
+    }
+    for (var i = 0; i < savedSearches.length; i++) {
+        $("#savedList").append("<li class=list-group-item>" + savedSearches[i] + "<button class = listbtn>Go</button></li>")
+    }
+    
+};
+
+// $("<button>").on('click', function (event) {
+//     event.preventDefault();
+//     event.stopPropagation();
+//     citySearchVal = $(this).siblings('li').val()
+//     console.log(citySearchVal)
+//     convertCityToCoords()
+// });
 
 function convertCityToCoords() {
     //convert the input city name to co-ordinates.
     var cityCoordQuery = "q=" + citySearchVal 
-    var baseCoordURL = "https://api.openweathermap.org/data/2.5/weather?appid=a373a52d933305394e8b248c3c11f5bd&units=imperial&"
     var finalCoordURL = baseCoordURL + cityCoordQuery
     
     fetch(finalCoordURL) 
@@ -92,6 +114,4 @@ function convertCityToCoords() {
 
 }
 
-
-
-searchFormEl.addEventListener('submit', searchCardSubmit);
+searchFormEl.on('submit', searchCardSubmit);
